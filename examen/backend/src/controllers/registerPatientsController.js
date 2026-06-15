@@ -1,11 +1,12 @@
 import nodemailer from "nodemailer";
 import crypto from "crypto";
-import jsonwebtoken from "jsonwentoken";
+import jsonwebtoken from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 
 import patientsModel from "../models/patients.js";
 
 import { config } from "../../config.js";
+import { v2 as cloudinary} from "cloudinary";
 import { register } from "module";
 
 const registerPatientController = {};
@@ -21,8 +22,6 @@ registerPatientController.register = async (req, res) => {
     phone,
     address,
     phoneEmergencyContact,
-    profilePhoto,
-    public_id,
     isVerified,
     loginAttempts,
     timeOut,
@@ -32,6 +31,8 @@ registerPatientController.register = async (req, res) => {
     return res.status(400).json({message: "Patient already exists"});
  }
  const passwordHashed = await bcryptjs.hash(password, 10);
+  const profilePhoto = req.file?.path || "";
+ const public_id = req.file?.path || "";
  const randomCode = crypto.randomBytes(3).toString("hex");
  
  const token = jsonwebtoken.sign(
@@ -40,7 +41,7 @@ registerPatientController.register = async (req, res) => {
         name,
             lastName,
             email,
-         password,
+         password: passwordHashed,
     birthDate,
     phone,
     address,
