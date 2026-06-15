@@ -22,6 +22,8 @@ patientController.updatePatient=async (req, res) => {
     phone,
     address,
     phoneEmergencyContact,
+    profilePhoto,
+    public_id,
     isVerified
     } = req.body;
         name = name?.trim();
@@ -34,7 +36,7 @@ patientController.updatePatient=async (req, res) => {
             return res.status(400).json({message: "Please insert a valid name"});
         }
 
-        const patientUpdated = await patientsModel.findByIdAndUpdate(req.params.id);
+        const patientUpdated = await patientsModel.findByIdAndUpdate(req.params.id,
         { name,
             lastName,
             email,
@@ -45,8 +47,11 @@ patientController.updatePatient=async (req, res) => {
     phoneEmergencyContact,
     profilePhoto,
     public_id,
-    isVerified}
-    {new true}
+    isVerified},
+    {
+        new: true
+    }
+    )
     
     if (!patientUpdated){
         return res.status(404).json({message: "Patient not found"});
@@ -60,7 +65,7 @@ return res.status(500).json({message: "Internal server error"});
 
 patientController.deletePatient = async(req, res) => {
     try {
-        const deletedPatient = patientsModel.findByIdAndDelete(req.params.id);
+        const deletedPatient = await patientsModel.findByIdAndDelete(req.params.id);
 
         if(!deletedPatient){
             return res.status(404).json({message: "Patient not found"});

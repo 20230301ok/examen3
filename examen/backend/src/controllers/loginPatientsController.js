@@ -1,14 +1,14 @@
 import bcrypt from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import {config}  from "../../config.js";
-import patientModel from "../models/patients.js";
+import patientsModel from "../models/patients.js";
 
 const loginPatientController = {};
 
 loginPatientController.login=async (req, res) => {
     try {
         const {email, password} = req.body;
-        const patientFound = await patientModel
+        const patientFound = await patientsModel.findOne({email})
 
         if (!patientFound){
             return res.status(400).json({message: "Patient not found"})

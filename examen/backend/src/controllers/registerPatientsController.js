@@ -32,7 +32,7 @@ registerPatientController.register = async (req, res) => {
  }
  const passwordHashed = await bcryptjs.hash(password, 10);
   const profilePhoto = req.file?.path || "";
- const public_id = req.file?.path || "";
+ const public_id = req.file?.filename || "";
  const randomCode = crypto.randomBytes(3).toString("hex");
  
  const token = jsonwebtoken.sign(
