@@ -1,4 +1,4 @@
-import express from "express";
+/*import express from "express";
 import patientController from "../controllers/patientsController.js";
 
 const router = express.router
@@ -11,3 +11,4 @@ router.route("/:id")
 .delete(patientController.deletePatient);
 
 export default router;
+*/

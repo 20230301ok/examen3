@@ -1,6 +1,6 @@
 import express from "express";
 import registerPatientController from "../controllers/registerPatientsController.js";
-import upload from "../middlewares/multer.js"
+import upload from "../utils/cloudinaryConfig.js"
 
 const router = express.Router();
 
