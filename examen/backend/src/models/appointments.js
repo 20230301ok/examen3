@@ -1,15 +1,13 @@
-patient_id
-specialty_id
-appointmentDate
-reason
-status
-observations
+
 
 import {Schema, model } from "mongoose";
 
 const patientsSchema = new Schema ({
-    patient_id: {type: String},
-    specialty_id: {type: String},
+    patient_id: {type: mongoose.Types.ObjectId,
+        ref: "Patient"
+    },
+    specialty_id: {type: mongoose.Types.ObjectId,
+        ref: "Specialty"},
     appointmentDate: {type: Date},
     reason: {type: String},
     status: {type: String},
