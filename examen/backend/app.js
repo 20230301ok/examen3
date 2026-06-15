@@ -1,7 +1,7 @@
 import express from "express";
-import patientRoutes from "./src/routes/patients.js";
+//import patientRoutes from "./src/routes/patients.js";
+import patientRegisterRoutes from "./src/routes/registerPatients.js";
 import cookieParser from "cookie-parser";
-import cors from cors;
 
 const app = express();
 app.use(
@@ -12,6 +12,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
-app.use("/api/patients", patientRoutes);
-
+//app.use("/api/patients", patientRoutes);
+app.use("/api/patientsRegister", patientRegisterRoutes);
 export default app;
